@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { FREE_CHANNELS } from "@/lib/channels";
+import { getChannelsByRegion, REGIONS, Region } from "@/lib/channels";
 import { FreeChannel } from "@/lib/types";
 import { LiveStreamPlayer } from "./LiveStreamPlayer";
 import { motion } from "framer-motion";
 
 export function ChannelGuide() {
   const [activeStream, setActiveStream] = useState<FreeChannel | null>(null);
+  const [region, setRegion] = useState<Region>("all");
+
+  const channels = getChannelsByRegion(region);
 
   const handleChannelClick = (channel: FreeChannel) => {
     if (channel.streamType === "hls" && channel.streamUrl) {
@@ -17,17 +20,41 @@ export function ChannelGuide() {
     }
   };
 
+  const regionLabel = (ch: FreeChannel) => {
+    if (ch.region === "global") return "GLOBAL";
+    if (ch.region === "africa") return "AFRICA";
+    if (ch.region === "us") return "US";
+    return "";
+  };
+
   return (
     <>
       <section id="channels" className="px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-xl font-bold mb-2">Free-to-Air Channels</h2>
           <p className="text-muted text-sm mb-4">
-            100% free — no subscription, no login, no credit card. Click to watch live.
+            100% free — no subscription, no login. Click to watch live. Filter by your region.
           </p>
 
+          {/* Region selector */}
+          <div className="flex gap-2 mb-5 overflow-x-auto scrollbar-none">
+            {REGIONS.map((r) => (
+              <button
+                key={r.id}
+                onClick={() => setRegion(r.id)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                  region === r.id
+                    ? "bg-emerald/15 text-emerald"
+                    : "text-muted hover:text-foreground glass-card"
+                }`}
+              >
+                {r.name}
+              </button>
+            ))}
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FREE_CHANNELS.map((channel, i) => (
+            {channels.map((channel, i) => (
               <motion.button
                 key={channel.id}
                 onClick={() => handleChannelClick(channel)}
@@ -43,8 +70,8 @@ export function ChannelGuide() {
                   >
                     {channel.name.slice(0, 2).toUpperCase()}
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground group-hover:text-emerald transition-colors">
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-foreground group-hover:text-emerald transition-colors truncate">
                       {channel.name}
                     </h3>
                     <div className="flex items-center gap-1.5">
@@ -55,6 +82,9 @@ export function ChannelGuide() {
                           LIVE
                         </span>
                       )}
+                      <span className="text-[10px] text-muted/60 uppercase">
+                        {regionLabel(channel)}
+                      </span>
                     </div>
                   </div>
                 </div>

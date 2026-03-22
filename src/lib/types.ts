@@ -7,6 +7,7 @@ export interface FreeChannel {
   competitions: number[];
   streamUrl?: string;
   streamType: "hls" | "iframe" | "link";
+  region?: "global" | "us" | "africa";
 }
 
 export interface EnrichedMatch {
