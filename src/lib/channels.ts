@@ -1,0 +1,70 @@
+import { FreeChannel } from "./types";
+
+export const FREE_CHANNELS: FreeChannel[] = [
+  {
+    id: "cbs_golazo",
+    name: "CBS Golazo",
+    url: "https://www.cbssports.com/soccer/golazo-network/",
+    color: "#0055ff",
+    description: "Free 24/7 soccer channel — Champions League, Serie A, NWSL, USL",
+    competitions: [2001, 2019, 2152],
+    streamUrl: "https://dai.google.com/linear/hls/event/GxrCGmwST0ixsrc_QgB6qw/master.m3u8",
+    streamType: "hls",
+  },
+  {
+    id: "pluto_tv_golazo",
+    name: "Pluto TV (Golazo)",
+    url: "https://pluto.tv/us/live-tv/63a0e33a45264d000850ed7e",
+    color: "#23252b",
+    description: "CBS Golazo on Pluto TV — free ad-supported",
+    competitions: [2001, 2019],
+    streamType: "iframe",
+  },
+  {
+    id: "pluto_tv_sports",
+    name: "Pluto TV Sports",
+    url: "https://pluto.tv/us/live-tv/5d9b8c0d8519e50007f2b3c8",
+    color: "#23252b",
+    description: "General free sports channel on Pluto TV",
+    competitions: [],
+    streamType: "iframe",
+  },
+  {
+    id: "tubi",
+    name: "Tubi",
+    url: "https://tubitv.com/category/sports",
+    color: "#fa382f",
+    description: "FOX Sports content — replays, highlights, Bundesliga clips",
+    competitions: [2002],
+    streamType: "link",
+  },
+  {
+    id: "fifa_plus",
+    name: "FIFA+",
+    url: "https://www.fifa.com/fifaplus/en/watch",
+    color: "#326295",
+    description: "Free World Cup, international tournaments, documentaries",
+    competitions: [2000, 2077, 2018],
+    streamType: "link",
+  },
+  {
+    id: "vix_gratis",
+    name: "ViX Free",
+    url: "https://www.vix.com/es/futbol",
+    color: "#6c3ead",
+    description: "Free Liga MX, Copa del Rey — Spanish language",
+    competitions: [],
+    streamType: "link",
+  },
+];
+
+export const LEAGUE_INFO: Record<number, { name: string; emoji: string }> = {
+  2021: { name: "Premier League", emoji: "EN" },
+  2014: { name: "La Liga", emoji: "ES" },
+  2019: { name: "Serie A", emoji: "IT" },
+  2002: { name: "Bundesliga", emoji: "DE" },
+  2015: { name: "Ligue 1", emoji: "FR" },
+  2001: { name: "Champions League", emoji: "EU" },
+  2018: { name: "European Championship", emoji: "EU" },
+  2000: { name: "FIFA World Cup", emoji: "WC" },
+};
